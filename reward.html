@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cryptale Reward Portal</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="reward-container">
+    <h1>🔑 The Final Gate</h1>
+    <p id="statusText">Enter the final code hidden in the real world to unlock your reward.</p>
+
+    <div id="inputSection">
+      <input type="text" id="finalAnswer" placeholder="Enter your code..." />
+      <button id="checkAnswer">Check Code</button>
+    </div>
+
+    <div id="winnerSection" style="display: none;">
+      <h2>🎉 You have unlocked the reward.</h2>
+      <p>Fill in your details to receive your £100 reward.</p>
+
+      <form id="winnerForm">
+        <label>Name:<br><input type="text" required></label><br><br>
+        <label>Age:<br><input type="number" required></label><br><br>
+        <label>Phone Number:<br><input type="tel" required></label><br><br>
+        <label>Address:<br><textarea required></textarea></label><br><br>
+        <label>Special Instructions:<br><textarea></textarea></label><br><br>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+  const correctFinalCode = "SHADOW42";
+
+  const huntEnd = new Date();
+  huntEnd.setHours(huntEnd.getHours() + 72);
+  const now = new Date();
+
+  if (now > huntEnd) {
+    document.body.innerHTML = "<h1>⏳ The reward portal has closed.</h1><p>Try again next time.</p>";
+  }
+
+  document.getElementById("checkAnswer").addEventListener("click", () => {
+    const userInput = document.getElementById("finalAnswer").value.trim().toUpperCase();
+
+    if (userInput === correctFinalCode) {
+      document.getElementById("statusText").style.display = "none";
+      document.getElementById("inputSection").style.display = "none";
+      document.getElementById("winnerSection").style.display = "block";
+    } else {
+      document.getElementById("statusText").textContent = "❌ Incorrect code. Try again.";
+    }
+  });
+
+  document.getElementById("winnerForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const data = {
+      name: form.elements[0].value,
+      age: form.elements[1].value,
+      phone: form.elements[2].value,
+      address: form.elements[3].value,
+      special: form.elements[4].value
+    };
+
+    try {
+      const response = await fetch("http://localhost:3000/submit-winner", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        alert("✅ Details submitted. We'll contact you soon.");
+        form.reset();
+      } else {
+        alert("❌ There was a problem submitting your info.");
+      }
+    } catch (err) {
+      console.error("Error:", err);
+      alert("⚠️ Could not connect to server.");
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Pandora Box – Cryptale</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="box-container">
+    <h1>The Pandora Box</h1>
+    <p id="message">🔒 The Box is locked. Enter your access code to continue.</p>
+    <input type="text" id="accessCodeInput" placeholder="Enter your code..." />
+    <button id="submitCode">Unlock Box</button>
+
+    <div id="boxContent" style="display: none;">
+      <h2>📦 The Box Has Opened</h2>
+      <p>Tap to reveal the first hint...</p>
+      <button id="showHintBtn">Reveal Hint 1</button>
+    </div>
+  </div>
+
+  <script src="js/box.js"></script>
+</body>
+</html>

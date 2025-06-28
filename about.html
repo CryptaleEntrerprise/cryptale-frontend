@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us – Cryptale</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="about-container">
+    <h1>🕯️ About Cryptale</h1>
+    <p>Cryptale is a living myth — a puzzle society disguised as a competition. Created by two chaotic minds from Portsmouth, it rewards cleverness, curiosity, and mystery-hunters.</p>
+
+    <h2>📬 Contact Us</h2>
+    <form id="contactForm">
+      <label>Name:<br><input type="text" required></label><br><br>
+      <label>Email:<br><input type="email" required></label><br><br>
+      <label>Message:<br><textarea required></textarea></label><br><br>
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("contactForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      alert("🕊️ Message sent. We’ll whisper back soon.");
+    });
+  </script>
+</body>
+</html>
